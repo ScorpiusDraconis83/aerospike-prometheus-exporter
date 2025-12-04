@@ -23,7 +23,8 @@ func (sip SystemInfoProvider) GetFileFD() map[string]string {
 		log.Error("Error while opening file,", fileName, " Error: ", err)
 		return fileFDStats
 	}
-	defer file.Close()
+
+	defer file.Close() //nolint:errcheck
 
 	scanner := bufio.NewScanner(file)
 

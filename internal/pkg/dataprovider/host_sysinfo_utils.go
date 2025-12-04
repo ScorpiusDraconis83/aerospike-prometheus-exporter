@@ -66,7 +66,8 @@ func parseNetStats(fileName string) map[string]string {
 		log.Error("Error while opening file,", fileName, " Error: ", err)
 		return arrSysInfoStats
 	}
-	defer file.Close()
+
+	defer file.Close() //nolint:errcheck
 
 	scanner := bufio.NewScanner(file)
 
@@ -80,7 +81,6 @@ func parseNetStats(fileName string) map[string]string {
 		}
 		for i := 1; i < len(statNames); i++ {
 			key := strings.ToLower(protocol + "_" + statNames[i])
-			// fmt.Println("key ", key, " acceptNetstat(key): ", acceptNetstat(key), " valueParts[i] ", valueParts[i])
 			if acceptNetstat(key) {
 				arrSysInfoStats[key] = values[i]
 			}

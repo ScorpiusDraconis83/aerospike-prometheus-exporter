@@ -43,13 +43,9 @@ func NewAerospikeStat(pContext commons.ContextType, pStatName string, allowed bo
 	// isAllowed := isMetricAllowed(pContext, pServerStatname)
 	mType := GetMetricType(pContext, pStatName)
 
-	isConfig := false
-	if strings.Contains(pStatName, "-") {
-		isConfig = true
-	}
+	isConfig := strings.Contains(pStatName, "-")
 
 	return AerospikeStat{pContext, pStatName, mType, allowed, isConfig, 0.0, nil, nil}
-	// return AerospikeStat{pContext, pStatName, mType, isAllowed, isConfig, 0.0, nil, nil, pServerStatname}
 }
 
 func (as *AerospikeStat) updateValues(value float64, labels []string, labelValues []string) {
